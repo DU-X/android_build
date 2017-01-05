@@ -650,13 +650,13 @@ function lunch()
     then
         # if we can't find the product, try to grab it from our github
         T=$(gettop)
-        pushd $T > /dev/null
+        cd $T > /dev/null
         vendor/extras/build/tools/roomservice.py $product
         cd - > /dev/null
         check_product $product
     else
         T=$(gettop)
-        pushd $T > /dev/null
+        cd $T > /dev/null
         vendor/extras/build/tools/roomservice.py $product true
         cd - > /dev/null
     fi
