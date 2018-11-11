@@ -887,9 +887,6 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   common.CheckSize(boot_img.data, "boot.img", target_info)
   common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
 
-  script.Print(" ")
-  script.Print("Flashing boot image..")
-
   if OPTIONS.backuptool:
     script.ShowProgress(0.02, 10)
     if OPTIONS.block_based:
@@ -897,6 +894,10 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.RunBackup("restore")
     if OPTIONS.block_based:
       script.Unmount("/system")
+
+  script.Print(" ")
+  script.Print("Flashing boot image..")
+  script.Print(" ")
 
   script.ShowProgress(0.05, 5)
   script.WriteRawImage("/boot", "boot.img")
