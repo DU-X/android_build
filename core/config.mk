@@ -230,10 +230,6 @@ include $(BUILD_SYSTEM)/envsetup.mk
 # See envsetup.mk for a description of SCAN_EXCLUDE_DIRS
 FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 
-ifneq ($(DU_BUILD),)
-include vendor/extras/config/BoardConfigDu.mk
-endif
-
 # The build system exposes several variables for where to find the kernel
 # headers:
 #   TARGET_DEVICE_KERNEL_HEADERS is automatically created for the current
@@ -1177,11 +1173,12 @@ dont_bother_goals := out \
     vbmetaimage-nodeps \
     product-graph dump-products
 
-#ifneq ($(DU_BUILD),)
+ifneq ($(DU_BUILD),)
 ## We need to be sure the global selinux policies are included
 ## last, to avoid accidental resetting by device configs
 #$(eval include device/du/sepolicy/common/sepolicy.mk)
-#endif
+include vendor/extras/config/BoardConfigDu.mk
+endif
 
 # Include any vendor specific config.mk file
 -include $(TOPDIR)vendor/*/build/core/config.mk
